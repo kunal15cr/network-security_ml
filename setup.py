@@ -1,0 +1,1 @@
+"Starting projects with a setup.py file is a common practice in Python. This file is used to specify the metadata and dependencies of your project, making it easier for others to install and use your package. Below is an example of a basic setup.py file:"
