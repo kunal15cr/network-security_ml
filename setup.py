@@ -1,1 +1,25 @@
-"Starting projects with a setup.py file is a common practice in Python. This file is used to specify the metadata and dependencies of your project, making it easier for others to install and use your package. Below is an example of a basic setup.py file:"
+from setuptools import setup, find_packages
+from typing import List
+
+
+def get_requirements() -> List[str]:
+    requirement_lst:List[str]=[]
+    try:
+        with open('requirements.txt', 'r') as f:
+            lines = f.readlines()
+            for line in lines:
+                requirement = line.strip()
+                if requirement and requirement!= '-e .':
+                    requirement_lst.append(requirement)
+
+    except FileNotFoundError:
+        return []
+    return requirement_lst
+
+setup(
+    name='ml_project',
+    version='0.0.1',
+    author='Kunal patil',
+    packages=find_packages(),
+    install_requires=get_requirements()
+    )
