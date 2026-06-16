@@ -1613,7 +1613,7 @@ wheels = [
 ]
 
 [[package]]
-name = "network-security"
+name = "networksecurity"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
