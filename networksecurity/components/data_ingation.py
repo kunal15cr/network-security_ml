@@ -32,13 +32,7 @@ class DataIngestion:
         except Exception as e:
             raise NetworkSecurityException(e, sys) from e
     
-    def initiate_data_ingestion(self):
-        try:
-            dataframe = self.export_data_as_dataframe()
-            dataframe = self.export_data_to_feature_store(dataframe)
-            return dataframe
-        except Exception as e:
-            raise NetworkSecurityException(e, sys) from e
+
     
     def export_data_to_feature_store(self, dataframe: pd.DataFrame):
         try:
@@ -47,5 +41,55 @@ class DataIngestion:
             os.makedirs(dir_path, exist_ok=True)
             dataframe.to_csv(feature_store_file_path, index=False, header=True)
             return dataframe
+        except Exception as e:
+            raise NetworkSecurityException(e, sys) from e
+    
+    def initiate_data_ingestion(self):
+        try:
+            dataframe = self.export_data_as_dataframe()
+            dataframe = self.export_data_to_feature_store(dataframe)
+            return dataframe
+        except Exception as e:
+            raise NetworkSecurityException(e, sys) from e
+    
+    def split_data_as_train_test(self, dataframe: pd.DataFrame) -> None:
+        try:
+            train_set, test_set = train_test_split(
+                dataframe, test_size=self.data_ingestion_config.train_test_split_ratio, random_state=42
+            )
+            logging.info("Performed train test split on the dataset")
+
+            logging.info("External data is split into train and test file")
+
+            dir_path = os.path.dirname(self.data_ingestion_config.train_file_path)
+
+            os.makedirs(dir_path, exist_ok=True)   
+
+            logging.info("Exporting train and test file to feature store")
+
+            train_set.to_csv(
+                self.data_ingestion_config.train_file_path, index=False, header=True
+                )
+
+
+            test_set.to_csv(
+                self.data_ingestion_config.test_file_path, index=False, header=True
+                )
+            
+            logging.info("Exported train and test file ")
+        except Exception as e:
+            raise NetworkSecurityException(e, sys) from e
+    
+    def initiate_data_ingestion(self):
+        try:
+            dataframe = self.export_data_as_dataframe()
+            dataframe = self.export_data_to_feature_store(dataframe)
+            self.split_data_as_train_test(dataframe)
+            return dataframe
+        except Exception as e:
+            raise NetworkSecurityException(e, sys) from e
+
+
+
         except Exception as e:
             raise NetworkSecurityException(e, sys) from e
