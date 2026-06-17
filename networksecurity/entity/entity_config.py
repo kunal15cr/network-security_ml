@@ -20,3 +20,4 @@ class DataIngestionConfig:
         self.train_test_split_ratio: float = training_pipeline.TRAIN_TEST_SPLIT_RATIO
         self.collection_name: str = training_pipeline.COLLECTION_NAME
         self.database_name: str = training_pipeline.DATABASE_NAME
+        self.sheet_id: str = training_pipeline.DATA_INGESTION_SHEET_ID
