@@ -41,9 +41,8 @@ class DataTransformation:
         logging.info("Creating data transformer object")
         try:
             imputer: KNNImputer = KNNImputer(**DATA_TRANSFORMATION_IMPUTER_PARAMS)
-            pipeline = Pipeline(steps=[("imputer", imputer)])
-            processor: Pipeline = pipeline([("imputer", imputer)])
-            return processor
+            preprocessor: Pipeline = Pipeline(steps=[("imputer", imputer)])
+            return preprocessor
         except Exception as e:
             raise NetworkSecurityException(e, sys) from e
         
@@ -65,12 +64,11 @@ class DataTransformation:
             target_feature_test_df = target_feature_test_df.replace(-1, 0)
 
             logging.info("Obtaining preprocessing object")
-            preprocessore = self.get_data_transformer_object()
+            preprocessing_obj = self.get_data_transformer_object()
 
             logging.info("Transforming training and testing data using preprocessing object")
-            prepocessing_obj = preprocessore.fit(input_feature_train_df)
-            input_feature_train_arr = prepocessing_obj.fit_transform(input_feature_train_df)
-            input_feature_test_arr = prepocessing_obj.transform(input_feature_test_df)
+            input_feature_train_arr = preprocessing_obj.fit_transform(input_feature_train_df)
+            input_feature_test_arr = preprocessing_obj.transform(input_feature_test_df)
 
             train_arr = np.c_[input_feature_train_arr, np.array(target_feature_train_df)]
             test_arr = np.c_[input_feature_test_arr, np.array(target_feature_test_df)]
@@ -79,7 +77,16 @@ class DataTransformation:
             # save numpy array
             save_numpy_array_data(self.data_transformation_config.transformed_train_file_path, train_arr)
             save_numpy_array_data(self.data_transformation_config.transformed_test_file_path, test_arr)
-            save_object(self.data_transformation_config.transformed_object_file_path, prepocessing_obj)
+            save_object(self.data_transformation_config.transformed_object_file_path, preprocessing_obj)
+
+            data_transformation_artifact = DataTransformationArtifact(
+                transformed_object_file_path=self.data_transformation_config.transformed_object_file_path,
+                transformed_train_file_path=self.data_transformation_config.transformed_train_file_path,
+                transformed_test_file_path=self.data_transformation_config.transformed_test_file_path,
+            )
+
+            logging.info(f"Data transformation artifact: {data_transformation_artifact}")
+            return data_transformation_artifact
 
         except Exception as e:
             raise NetworkSecurityException(e, sys) from e
