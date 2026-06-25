@@ -48,7 +48,7 @@ class DataValidation:
                drift_report_file_path = self.data_validation_config.drift_report_file_path 
 
                os.makedirs(os.path.dirname(drift_report_file_path), exist_ok=True)
-               write_yaml_file(drift_report_file_path, report)
+           write_yaml_file(drift_report_file_path, report)
         except Exception as e:
             raise NetworkSecurityException(e, sys) from e
 
