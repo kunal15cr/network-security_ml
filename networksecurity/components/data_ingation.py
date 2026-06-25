@@ -11,6 +11,7 @@ from networksecurity.logging.logger import logging
 
 # configaration for data ingestion
 from networksecurity.entity.entity_config import DataIngestionConfig
+from networksecurity.entity.artifac_entity import DataIngestionArtifact
 
 
 
@@ -85,11 +86,15 @@ class DataIngestion:
             dataframe = self.export_data_as_dataframe()
             dataframe = self.export_data_to_feature_store(dataframe)
             self.split_data_as_train_test(dataframe)
-            return dataframe
+            data_ingestion_artifact = DataIngestionArtifact(
+                train_file_path=self.data_ingestion_config.train_file_path,
+                test_file_path=self.data_ingestion_config.test_file_path
+            )
+            return data_ingestion_artifact
+            
         except Exception as e:
             raise NetworkSecurityException(e, sys) from e
 
 
 
-        except Exception as e:
-            raise NetworkSecurityException(e, sys) from e
+       

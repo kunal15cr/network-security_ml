@@ -1,0 +1,5 @@
+2026-06-17 22:05:51,080 - INFO - Starting data ingestion
+2026-06-17 22:05:52,876 - INFO - Performed train test split on the dataset
+2026-06-17 22:05:52,876 - INFO - External data is split into train and test file
+2026-06-17 22:05:52,877 - INFO - Exporting train and test file to feature store
+2026-06-17 22:05:52,907 - INFO - Exported train and test file 
