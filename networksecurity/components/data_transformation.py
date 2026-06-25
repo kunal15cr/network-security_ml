@@ -15,7 +15,7 @@ from networksecurity.entity.artifac_entity import (
 from networksecurity.entity.entity_config import DataTransformationConfig, DataValidationConfig
 from networksecurity.exception import NetworkSecurityException
 from networksecurity.logging.logger import logging
-from networksecurity.utils.main_utils.utils import save_numpy_array_data
+from networksecurity.utils.main_utils.utils import save_numpy_array_data, save_object
 
 
 class DataTransformation:
