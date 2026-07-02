@@ -1,0 +1,22 @@
+Metadata-Version: 2.4
+Name: networksecurity
+Version: 0.1.0
+Summary: Add your description here
+Author: Kunal patil
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: certifi>=2026.5.20
+Requires-Dist: dagshub>=0.7.0
+Requires-Dist: fastapi>=0.136.3
+Requires-Dist: mlflow>=3.13.0
+Requires-Dist: numpy>=2.4.6
+Requires-Dist: pandas>=2.3.3
+Requires-Dist: pyaml>=26.2.1
+Requires-Dist: pymongo[srv]>=4.17.0
+Requires-Dist: python-dotenv>=1.2.2
+Requires-Dist: python-multipart>=0.0.32
+Requires-Dist: scikit-learn>=1.9.0
+Requires-Dist: uvicorn>=0.49.0
+Dynamic: author
+
+"Starting projects with a setup.py file is a common practice in Python. This file is used to specify the metadata and dependencies of your project, making it easier for others to install and use your package. Below is an example of a basic setup.py file:"

@@ -11,6 +11,8 @@ dagshub
 fastapi
 uvicorn
 python-multipart
+scikit-learn
+dill
 
 
 ##-e .
